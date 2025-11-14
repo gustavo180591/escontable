@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Estudio Contable Andar: Contabilidad simple para monotributistas y pymes. Asesoramiento fiscal, AFIP, sueldos y más.">
+    <meta name="theme-color" content="#111827">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="business.business">
+    <meta property="og:url" content="https://estudiocontableandar.com">
+    <meta property="og:title" content="Estudio Contable Andar">
+    <meta property="og:description" content="Contabilidad simple para monotributistas y pymes">
+    <meta property="og:image" content="/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Estudio Contable Andar">
+    <meta name="twitter:description" content="Contabilidad simple para monotributistas y pymes">
+    
+    <title>Estudio Contable Andar - Contabilidad para Monotributistas y Pymes</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#111827',
+                        accent: '#EF4444',
+                        light: '#F3F4F6',
+                        white: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        sans: 'Inter, system-ui, sans-serif'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Estudio Contable Andar",
+        "image": "https://estudiocontableandar.com/og-image.jpg",
+        "description": "Contabilidad simple para monotributistas y pymes",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Principales 123",
+            "addressLocality": "Posadas",
+            "addressRegion": "Misiones",
+            "postalCode": "3300",
+            "addressCountry": "AR"
+        },
+        "telephone": "+54-370-400-0000",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "areaServed": "AR",
+        "priceRange": "$$",
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios Contables",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Alta de Monotributo",
+                    "description": "Trámites de inscripción y registro en AFIP"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Facturación Electrónica",
+                    "description": "Configuración e implementación de punto de venta"
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .btn-primary {
+            @apply bg-accent hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200;
+        }
+        
+        .btn-secondary {
+            @apply bg-light hover:bg-gray-200 text-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-200;
+        }
+        
+        .accordion-item {
+            @apply border-b border-gray-200;
+        }
+        
+        .accordion-button {
+            @apply w-full text-left py-4 px-6 font-medium flex justify-between items-center hover:bg-gray-50 transition-colors;
+        }
+        
+        .accordion-button.active {
+            @apply text-accent;
+        }
+        
+        .accordion-content {
+            @apply hidden px-6 pb-4 text-gray-600;
+        }
+        
+        .accordion-content.show {
+            @apply block;
+        }
+        
+        .service-card {
+            @apply bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-900">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-primary">Andar</h1>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex gap-8">
+                    <a href="#servicios" class="text-gray-600 hover:text-primary transition">Servicios</a>
+                    <a href="#planes" class="text-gray-600 hover:text-primary transition">Planes</a>
+                    <a href="#clientes" class="text-gray-600 hover:text-primary transition">Clientes</a>
+                    <a href="#faq" class="text-gray-600 hover:text-primary transition">Preguntas</a>
+                    <a href="#contacto" class="text-gray-600 hover:text-primary transition">Contacto</a>
+                </div>
+                
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20sobre%20tus%20servicios" 
+                       class="btn-primary text-sm"
+                       target="_blank" rel="noopener noreferrer">
+                        WhatsApp
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="#servicios" class="block py-2 text-gray-600 hover:text-primary">Servicios</a>
+                <a href="#planes" class="block py-2 text-gray-600 hover:text-primary">Planes</a>
+                <a href="#clientes" class="block py-2 text-gray-600 hover:text-primary">Clientes</a>
+                <a href="#faq" class="block py-2 text-gray-600 hover:text-primary">Preguntas</a>
+                <a href="#contacto" class="block py-2 text-gray-600 hover:text-primary">Contacto</a>
+                <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20sobre%20tus%20servicios" 
+                   class="btn-primary block text-center mt-4 text-sm"
+                   target="_blank" rel="noopener noreferrer">
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-gradient-to-b from-gray-900 to-primary text-white py-20 md:py-32">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                        Contabilidad simple para monotributistas y pymes
+                    </h1>
+                    <p class="text-xl text-gray-200 mb-8">
+                        Alta, recategorización, sueldos, impuestos y más. Asesoramiento fiscal especializado con atención personalizada.
+                    </p>
+                    <div class="flex gap-4 flex-wrap">
+                        <a href="#servicios" class="bg-accent hover:bg-red-600 text-white font-semibold py-3 px-8 rounded-lg transition">
+                            Ver servicios
+                        </a>
+                        <a href="https://wa.me/5493704000000?text=Hola%20quiero%20más%20información%20sobre%20tus%20servicios" 
+                           class="btn-secondary"
+                           target="_blank" rel="noopener noreferrer">
+                            Escribir por WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <picture>
+                        <source srcset="/placeholder.svg?height=400&width=500" type="image/webp">
+                        <img src="/placeholder.svg?height=400&width=500" 
+                             alt="Oficina contable moderna" 
+                             width="500" 
+                             height="400"
+                             loading="lazy"
+                             class="rounded-xl shadow-lg">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 bg-light">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-4 text-primary">Nuestros Servicios</h2>
+            <p class="text-center text-gray-600 mb-16">
+                Soluciones contables integrales para tu negocio
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Cards -->
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">1</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Alta de Monotributo</h3>
+                    <p class="text-gray-600 mb-4">Trámites de inscripción y registro en AFIP</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Alta%20de%20Monotributo" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">2</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Recategorización</h3>
+                    <p class="text-gray-600 mb-4">Cambio de régimen y categoría fiscal</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Recategorización" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">3</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">DDJJ y Régimen de Información</h3>
+                    <p class="text-gray-600 mb-4">Declaraciones juradas y reportes AFIP</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20DDJJ%20y%20Régimen%20de%20Información" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">4</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Facturación Electrónica</h3>
+                    <p class="text-gray-600 mb-4">Configuración e implementación de punto de venta</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Facturación%20Electrónica" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">5</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Ingresos Brutos</h3>
+                    <p class="text-gray-600 mb-4">Trámites ARBA, AGIP y DGR</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Ingresos%20Brutos" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">6</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">IVA / Ganancias</h3>
+                    <p class="text-gray-600 mb-4">Impuestos nacionales para autónomos y empresas</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20IVA%20y%20Ganancias" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">7</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Sueldos y Cargas Sociales</h3>
+                    <p class="text-gray-600 mb-4">Liquidación de salarios y contribuciones AFIP</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Sueldos%20y%20Cargas%20Sociales" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white font-bold">8</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Balance y Estados Contables</h3>
+                    <p class="text-gray-600 mb-4">Para SRL, SA y SAS con auditoría completa</p>
+                    <a href="https://wa.me/5493704000000?text=Hola%20quiero%20consultar%20por%20Balance%20y%20Estados%20Contables" 
+                       class="text-accent font-semibold hover:underline"
+                       target="_blank" rel="noopener noreferrer">
+                        Consultar este servicio →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentials Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">¿Por qué elegirnos?</h2>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        💬
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Atención por WhatsApp</h3>
+                    <p class="text-gray-600">Comunicación rápida y directa con tu contador</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        💰
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Honorarios Claros</h3>
+                    <p class="text-gray-600">Sin sorpresas. Precios fijos y transparentes</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        📅
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Recordatorios de Vencimientos</h3>
+                    <p class="text-gray-600">Nunca pierdas un plazo fiscal importante</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        🇦🇷
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Cobertura Nacional</h3>
+                    <p class="text-gray-600">Atendemos clientes en toda Argentina</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="planes" class="py-20 bg-light">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-4 text-primary">Planes y Precios</h2>
+            <p class="text-center text-gray-600 mb-16">
+                Precios orientativos. Pueden variar según el volumen y complejidad
+            </p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-primary text-white">
+                            <th class="p-4 text-left font-bold">Plan</th>
+                            <th class="p-4 text-center font-bold">Precio Mensual</th>
+                            <th class="p-4 text-left font-bold">Incluye</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-300 hover:bg-white transition">
+                            <td class="p-4 font-bold text-primary">Monotributo</td>
+                            <td class="p-4 text-center font-bold text-accent">Desde $ 4.999,00</td>
+                            <td class="p-4 text-sm">
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>DDJJ informativas</li>
+                                    <li>Asesoramiento básico</li>
+                                    <li>Recordatorios de vencimientos</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-300 hover:bg-white transition">
+                            <td class="p-4 font-bold text-primary">Responsable Inscripto</td>
+                            <td class="p-4 text-center font-bold text-accent">Desde $ 7.999,00</td>
+                            <td class="p-4 text-sm">
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>Liquidación de IVA</li>
+                                    <li>Ingresos Brutos</li>
+                                    <li>Asientos básicos</li>
+                                    <li>Asesoramiento mensual</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-300 hover:bg-white transition">
+                            <td class="p-4 font-bold text-primary">Pyme (SRL/SA/SAS)</td>
+                            <td class="p-4 text-center font-bold text-accent">Desde $ 12.999,00</td>
+                            <td class="p-4 text-sm">
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>Contabilidad mensual</li>
+                                    <li>Sueldos (opcionales)</li>
+                                    <li>Balance anual</li>
+                                    <li>Asesoramiento permanente</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-primary">Nuestro Proceso</h2>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold">
+                        1
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary">Diagnosticamos</h3>
+                    <p class="text-gray-600">
+                        Analizamos tu situación fiscal actual, necesidades y oportunidades de optimización
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold">
+                        2
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary">Ordenamos tu Fiscalidad</h3>
+                    <p class="text-gray-600">
+                        Implementamos la estrategia más eficiente para tu negocio, minimizando impuestos
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold">
+                        3
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary">Te Acompañamos Mes a Mes</h3>
+                    <p class="text-gray-600">
+                        Seguimiento continuo, asesoramiento y actualización fiscal permanente
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="clientes" class="py-20 bg-light">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-primary">Lo que dicen nuestros clientes</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center mb-4">
+                        <span class="text-accent text-2xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Excelente atención. Resolvieron todos mis trámites de monotributo en tiempo récord. Muy recomendados."
+                    </p>
+                    <div>
+                        <p class="font-bold text-primary">Martín García</p>
+                        <p class="text-sm text-gray-500">Consultor de IT · Posadas</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center mb-4">
+                        <span class="text-accent text-2xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Desde que trabajo con Andar, los impuestos no me quitan el sueño. Muy profesionales y confiables."
+                    </p>
+                    <div>
+                        <p class="font-bold text-primary">Carolina López</p>
+                        <p class="text-sm text-gray-500">Emprendedora · Oberá</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center mb-4">
+                        <span class="text-accent text-2xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Mi PyME creció gracias al asesoramiento fiscal de Andar. Claros con los precios y muy atentos."
+                    </p>
+                    <div>
+                        <p class="font-bold text-primary">Roberto Fernández</p>
+                        <p class="text-sm text-gray-500">Distribuidor · Eldorado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-primary">Preguntas Frecuentes</h2>
+            
+            <div class="space-y-2">
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="0">
+                        <span>¿Qué incluye el plan de Monotributo?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>El plan de Monotributo incluye declaraciones juradas informativas mensuales, asesoramiento básico sobre obligaciones fiscales, recordatorios de vencimientos AFIP, y asistencia con cambios de categoría si es necesario.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="1">
+                        <span>¿Hacen recategorizaciones y cambios de actividad?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sí, realizamos recategorizaciones completas de Monotributo a Responsable Inscripto, cambios de actividad, y todas las gestiones necesarias ante AFIP. Nos encargamos de todo el trámite administrativo.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="2">
+                        <span>¿Trabajan con AFIP, ARBA y AGIP?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutamente. Gestionamos trámites ante AFIP (Monotributo, IVA, Ganancias), ARBA para Ingresos Brutos en Misiones, AGIP en otras provincias, y todas las dependencias fiscales relevantes.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="3">
+                        <span>¿Pueden llevar sueldos y cargas sociales?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sí, contamos con experiencia en liquidación de sueldos, descuentos, aportes AFIP, contribuciones sindicales y toda la documentación asociada. Disponible en planes Responsable Inscripto y Pyme.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="4">
+                        <span>¿Cómo manejan los vencimientos?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Te enviamos recordatorios con anticipación de todos los vencimientos fiscales importantes. Asesoramos sobre qué hacer en cada fecha y te acompañamos en la presentación de declaraciones y pagos.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-button" data-accordion="5">
+                        <span>¿Emiten factura A/B/C y preparan libros?</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sí, configuramos facturación electrónica A, B y C según corresponda. Preparamos registros de IVA, libros de compras y ventas, y toda la documentación exigible por AFIP.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-light">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-4 text-primary">Contáctanos</h2>
+            <p class="text-center text-gray-600 mb-12">
+                Rellena el formulario o escríbenos por WhatsApp
+            </p>
+            
+            <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="bg-white rounded-2xl shadow-md p-8">
+                <!-- Honeypot -->
+                <div class="hidden">
+                    <input type="text" name="bot-field">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre*</label>
+                    <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email*</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="telefono" class="block text-sm font-medium text-gray-700 mb-2">Teléfono*</label>
+                    <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="tipo" class="block text-sm font-medium text-gray-700 mb-2">Tipo de contribuyente*</label>
+                    <select id="tipo" name="tipo" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+                        <option value="">Seleccionar</option>
+                        <option value="Monotributo">Monotributo</option>
+                        <option value="Responsable Inscripto">Responsable Inscripto</option>
+                        <option value="Pyme">Pyme (SRL/SA/SAS)</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="servicio" class="block text-sm font-medium text-gray-700 mb-2">Servicio de interés*</label>
+                    <select id="servicio" name="servicio" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+                        <option value="">Seleccionar</option>
+                        <option value="Alta de Monotributo">Alta de Monotributo</option>
+                        <option value="Recategorización">Recategorización</option>
+                        <option value="Facturación Electrónica">Facturación Electrónica</option>
+                        <option value="Sueldos">Sueldos y Cargas Sociales</option>
+                        <option value="Balance">Balance y Estados Contables</option>
+                        <option value="Asesoramiento General">Asesoramiento General</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none"></textarea>
+                </div>
+                
+                <div class="flex gap-4 flex-wrap">
+                    <button type="submit" class="btn-primary">
+                        Enviar consulta
+                    </button>
+                    <a href="https://wa.me/5493704000000?text=Hola%20prefiero%20comunicarme%20por%20WhatsApp" 
+                       class="btn-secondary"
+                       target="_blank" rel="noopener noreferrer">
+                        Prefiero WhatsApp
+                    </a>
+                </div>
+                
+                <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
+                    ¡Gracias por tu consulta! Te contactaremos pronto.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Andar</h3>
+                    <p class="text-gray-300">Contabilidad simple para tu negocio</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Enlaces</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#servicios" class="hover:text-white transition">Servicios</a></li>
+                        <li><a href="#planes" class="hover:text-white transition">Planes</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">Preguntas</a></li>
+                        <li><a href="#contacto" class="hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>
+                            <a href="https://wa.me/5493704000000" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">
+                                WhatsApp: +54 370 400 0000
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@estudiocontableandar.com" class="hover:text-white transition">
+                                info@estudiocontableandar.com
+                            </a>
+                        </li>
+                        <li>Av. Principales 123, Posadas, Misiones</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Horarios</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Lunes a Viernes</li>
+                        <li>9:00 - 18:00</li>
+                        <li class="pt-2 border-t border-gray-600">
+                            <a href="#" class="hover:text-white transition">Política de Privacidad</a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-white transition">Términos y Condiciones</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 Estudio Contable Andar. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script defer src="/assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-primary: #111827;
+  --color-accent: #EF4444;
+  --color-light: #F3F4F6;
+  --color-surface: #FFFFFF;
+  --font-sans: 'Inter', 'system-ui', 'sans-serif';
+}
+
+@layer base {
+  body {
+    @apply text-primary bg-white;
+  }
+}
