@@ -1,8 +1,8 @@
 # Netlify configuration for Estudio Contable Andar
 
 [build]
-  publish = "/"
-  command = ""
+  publish = ".next"
+  command = "npm run build"
 
 # Netlify Forms
 [build.processing.forms]
