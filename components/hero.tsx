@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Hero() {
   return (
     <section className="relative bg-gradient-to-br from-primary to-gray-900 text-white py-20 md:py-28 overflow-hidden">
@@ -24,9 +26,11 @@ export default function Hero() {
             </div>
           </div>
           <div className="hidden md:block">
-            <img src="/contador-trabajando-oficina-contabilidad.jpg" 
-                 alt="Contador trabajando en la oficina" 
-                 className="w-full h-auto rounded-2xl shadow-2xl" />
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_umkShhuBdcNTLJ34v1d3TMJ4Z9cN/fluSePmrrikgGf0F_nlr_T/public/contador-trabajando-oficina-contabilidad.jpg" 
+              alt="Contador trabajando en la oficina" 
+              className="w-full h-auto rounded-2xl shadow-2xl" 
+            />
           </div>
         </div>
       </div>
